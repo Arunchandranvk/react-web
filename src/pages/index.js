@@ -1,0 +1,12 @@
+export { default as Home } from "./Home";
+export { default as About } from "./About";
+export { default as Pricing } from "./Pricing";
+export { default as Contact } from "./Contact";
+export { default as Insights } from "./Insights";
+export { default as Terms } from "./Terms";
+export { default as Login } from "./Login";
+export { default as Register } from "./Register";
+export { default as Dashboard } from "./Dashboard";
+export { default as Projects } from "./Projects";
+export { default as NewProject } from "./NewProject";
+export { default as ProjectDetail } from "./ProjectDetail";

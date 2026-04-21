@@ -1,0 +1,84 @@
+/* App-level styles — layout helpers and legacy component overrides */
+
+.App { min-height: 100vh; }
+
+/* ── Dashboard grid (legacy, kept for DashboardLayout if used) ── */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+}
+
+.sidebar      { @apply border-r border-border bg-card; }
+.main-content { @apply bg-background; }
+
+/* ── Hero overlay (bg-image dark gradient) ── */
+.hero-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(6, 13, 26, 0.96) 0%,
+    rgba(11, 26, 54, 0.90) 55%,
+    rgba(17, 34, 68, 0.82) 100%
+  );
+}
+
+/* ── Features grid (public pages) ── */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ── Stats grid (4-up, collapses 2×2 on mobile) ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.stats-grid > * { @apply p-8 text-center; }
+
+@media (max-width: 768px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid > *:nth-child(1),
+  .stats-grid > *:nth-child(2) { @apply border-b border-border; }
+  .stats-grid > *:nth-child(2) { @apply border-r-0; }
+}
+
+/* ── Testimonial cards ── */
+.testimonial-card { @apply premium-card p-8; }
+
+/* ── Pricing cards ── */
+.pricing-card { @apply premium-card p-8 relative; }
+.pricing-card.featured { border: 2px solid hsl(var(--primary)); }
+.pricing-card.featured::before {
+  content: 'MOST POPULAR';
+  @apply absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full;
+}
+
+/* ── Insight cards ── */
+.insight-card { @apply premium-card overflow-hidden; }
+.insight-card:hover { @apply -translate-y-0.5; }
+
+/* ── Project cards ── */
+.project-card { @apply premium-card p-6 transition-all duration-200; }
+.project-card:hover {
+  @apply -translate-y-0.5;
+  box-shadow: 0 4px 12px 0 rgb(0 0 0 / 0.10);
+}
+
+/* ── Contact grid ── */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+@media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+
+/* ── Badge status ── */
+.badge-status { @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold; }
+.badge-status.draft     { @apply bg-muted text-muted-foreground; }
+.badge-status.active    { @apply bg-emerald-50 text-emerald-700; }
+.badge-status.completed { @apply bg-blue-50 text-blue-700; }
+.badge-status.archived  { @apply bg-gray-100 text-gray-600; }
+
+/* ── Skeleton ── */
+.skeleton-pulse { @apply animate-pulse bg-muted rounded-lg; }
