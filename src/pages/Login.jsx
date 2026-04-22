@@ -12,7 +12,8 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const Login = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  // Pre-fill with demo credentials
+  const [formData, setFormData] = useState({ email: "demo@demo.com", password: "DemoPass123" });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
