@@ -24,16 +24,17 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      const response = await axios.post(`${API}/auth/login`, formData);
-      login(response.data.user);
-      toast.success("Welcome back!");
-      navigate("/dashboard");
-    } catch (error) {
-      toast.error(error.response?.data?.detail || "Invalid credentials");
-    } finally {
-      setLoading(false);
-    }
+    // Directly log in dummy user for demo (no backend)
+    const dummyUser = {
+      id: "demo-id",
+      name: "Demo User",
+      email: formData.email,
+      company: "Demo Company"
+    };
+    login(dummyUser);
+    toast.success("Welcome back!");
+    navigate("/dashboard");
+    setLoading(false);
   };
 
   const benefits = [
