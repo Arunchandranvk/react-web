@@ -14,6 +14,7 @@ export const Navbar = () => {
   const solid = true;
 
   const navLinks = [
+    { href: "/",         label: "Home" },
     { href: "/about",    label: "About" },
     { href: "/pricing",  label: "Pricing" },
     { href: "/insights", label: "Insights" },

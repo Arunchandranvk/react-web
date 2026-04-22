@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import CreateEstimateModal from "@/components/CreateEstimateModal";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Button } from "@/components/ui/button";
 import {
@@ -145,6 +146,8 @@ const AppDashboard = () => {
     return map[status] || map.draft;
   };
 
+  const navigate = useNavigate();
+  const [createOpen, setCreateOpen] = useState(false);
   const firstName = user?.name?.split(" ")[0] || "there";
 
   return (
@@ -156,14 +159,13 @@ const AppDashboard = () => {
           <h1 className="text-2xl font-bold mb-1">Good morning, {firstName} 👋</h1>
           <p className="text-muted-foreground text-sm">Here's what's happening with your projects today.</p>
         </div>
-        <Link to="/projects/new">
-          <Button className="rounded-xl font-semibold text-white"
-            style={{ background:"hsl(var(--primary))", boxShadow:"0 2px 8px hsl(var(--primary) / 0.25)" }}
-            data-testid="new-estimate-btn">
-            <Plus className="w-4 h-4 mr-2" />
-            New Estimate
-          </Button>
-        </Link>
+        <Button onClick={() => setCreateOpen(true)}
+          className="rounded-xl font-semibold text-white"
+          style={{ background:"hsl(var(--primary))", boxShadow:"0 2px 8px hsl(var(--primary) / 0.25)" }}
+          data-testid="new-estimate-btn">
+          <Plus className="w-4 h-4 mr-2" />
+          New Estimate
+        </Button>
       </div>
 
       {/* Stat cards */}
@@ -319,6 +321,12 @@ const AppDashboard = () => {
           </div>
         )}
       </div>
+
+      <CreateEstimateModal
+        open={createOpen}
+        onOpenChange={setCreateOpen}
+        onCreated={(project) => navigate(`/projects/${project.id}`)}
+      />
 
     </AppLayout>
   );

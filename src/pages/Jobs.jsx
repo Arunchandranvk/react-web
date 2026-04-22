@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AppLayout } from "@/components/layout/AppLayout";
+import CreateEstimateModal from "@/components/CreateEstimateModal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -74,11 +75,13 @@ const TABS = [
 
 const Jobs = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [jobs, setJobs]           = useState([]);
   const [loading, setLoading]     = useState(true);
   const [activeTab, setActiveTab] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy]       = useState("newest");
+  const [createOpen, setCreateOpen] = useState(false);
 
   useEffect(() => { fetchJobs(); }, []);
 
@@ -147,14 +150,13 @@ const Jobs = () => {
           <h1 className="text-2xl font-bold mb-1">Jobs</h1>
           <p className="text-muted-foreground text-sm">Manage your estimation projects and bids.</p>
         </div>
-        <Link to="/projects/new">
-          <Button className="rounded-xl font-semibold text-white bg-primary hover:bg-primary/90"
-            style={{ boxShadow: "0 2px 8px hsl(var(--primary) / 0.25)" }}
-            data-testid="create-job-btn">
-            <Plus className="w-4 h-4 mr-2" />
-            Create New Job
-          </Button>
-        </Link>
+        <Button onClick={() => setCreateOpen(true)}
+          className="rounded-xl font-semibold text-white bg-primary hover:bg-primary/90"
+          style={{ boxShadow: "0 2px 8px hsl(var(--primary) / 0.25)" }}
+          data-testid="create-job-btn">
+          <Plus className="w-4 h-4 mr-2" />
+          Create New Job
+        </Button>
       </div>
 
       {/* ── Status tabs ── */}
@@ -242,12 +244,11 @@ const Jobs = () => {
                 : "Create your first job to get started."}
             </p>
             {!searchQuery && activeTab === "all" && (
-              <Link to="/projects/new">
-                <Button className="rounded-xl font-semibold text-white bg-primary hover:bg-primary/90">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Create Job
-                </Button>
-              </Link>
+              <Button onClick={() => setCreateOpen(true)}
+                className="rounded-xl font-semibold text-white bg-primary hover:bg-primary/90">
+                <Plus className="w-4 h-4 mr-2" />
+                Create Job
+              </Button>
             )}
           </div>
         ) : (
@@ -374,6 +375,12 @@ const Jobs = () => {
           </div>
         )}
       </div>
+
+      <CreateEstimateModal
+        open={createOpen}
+        onOpenChange={setCreateOpen}
+        onCreated={(project) => navigate(`/projects/${project.id}`)}
+      />
 
     </AppLayout>
   );
