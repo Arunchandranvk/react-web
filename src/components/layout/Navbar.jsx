@@ -121,22 +121,14 @@ export const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile menu overlay */}
+      {/* Mobile menu — slides down below navbar */}
       {mobileOpen && (
         <div className="mobile-menu md:hidden">
           <div className="mobile-menu-content">
-            <Link to="/" className="flex items-center gap-3 mb-4" onClick={() => setMobileOpen(false)}>
-              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center"
-                style={{ boxShadow: "0 4px 12px hsl(var(--primary) / 0.30)" }}>
-                <Calculator className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-2xl font-extrabold">Real Cost</span>
-            </Link>
-
-            <div className="flex flex-col w-full gap-1">
+            <nav className="flex flex-col w-full gap-1">
               {navLinks.map((link) => (
                 <Link key={link.href} to={link.href}
-                  className={`text-lg font-semibold px-5 py-3.5 rounded-xl text-center transition-colors ${
+                  className={`text-base font-semibold px-4 py-3 rounded-lg transition-colors ${
                     isActive(link.href)
                       ? "bg-primary/10 text-primary"
                       : "hover:bg-muted text-foreground"
@@ -145,20 +137,20 @@ export const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
-            </div>
+            </nav>
 
-            <div className="flex flex-col w-full gap-3 mt-4">
+            <div className="flex flex-col w-full gap-2 pt-3 border-t border-border">
               {user ? (
                 <Link to="/dashboard" onClick={() => setMobileOpen(false)}>
-                  <Button className="w-full rounded-xl py-5 bg-primary text-white font-semibold">Dashboard</Button>
+                  <Button className="w-full rounded-lg font-semibold bg-primary text-white">Dashboard</Button>
                 </Link>
               ) : (
                 <>
                   <Link to="/login" onClick={() => setMobileOpen(false)}>
-                    <Button variant="outline" className="w-full rounded-xl py-5 font-semibold">Sign In</Button>
+                    <Button variant="outline" className="w-full rounded-lg font-semibold">Sign In</Button>
                   </Link>
                   <Link to="/register" onClick={() => setMobileOpen(false)}>
-                    <Button className="w-full rounded-xl py-5 text-white font-semibold bg-accent hover:bg-accent/90">
+                    <Button className="w-full rounded-lg font-semibold text-white bg-accent hover:bg-accent/90">
                       <Zap className="w-4 h-4 mr-2" />Get Started Free
                     </Button>
                   </Link>
